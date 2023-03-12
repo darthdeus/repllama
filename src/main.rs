@@ -1,7 +1,7 @@
 use rustyline::error::ReadlineError;
 use rustyline::DefaultEditor;
 use std::{
-    io::{BufRead, BufReader},
+    io::{BufRead, BufReader, Read, Write},
     process::{Command, Stdio},
 };
 
@@ -68,19 +68,26 @@ pub fn post_form(prompt: String) {
         let response = response.unwrap();
 
         let mut reader = BufReader::new(response);
-        let mut buf = String::new();
+        // let mut buf = String::new();
+        //
+        // let mut i = 0;
 
-        let mut i = 0;
+        let mut buf = [0u8];
 
-        while let Ok(n) = reader.read_line(&mut buf) {
-            if n == 0 {
-                break;
-            }
-
-            // *progress.lock() = i;
-            println!("response {i} is ... {:?}", &buf);
-            buf = String::new();
-            i += 1;
+        while let Ok(()) = reader.read_exact(&mut buf) {
+            print!("{}", buf[0] as char);
+            std::io::stdout().flush().unwrap();
         }
+
+        // while let Ok(n) = reader.read_line(&mut buf) {
+        //     if n == 0 {
+        //         break;
+        //     }
+        //
+        //     // *progress.lock() = i;
+        //     println!("response {i} is ... {:?}", &buf);
+        //     buf = String::new();
+        //     i += 1;
+        // }
     });
 }
