@@ -54,7 +54,7 @@ pub fn post_form(prompt: String) {
         let client = reqwest::blocking::Client::new();
 
         let response = client
-            .get("http://localhost:8000")
+            .get("http://localhost:4277/stream_output")
             .body(format!(
                 r#"
             {{
