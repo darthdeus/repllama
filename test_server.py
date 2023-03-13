@@ -13,6 +13,6 @@ class MyHandler(BaseHTTPRequestHandler):
                     time.sleep(0.025)
 
 if __name__ == '__main__':
-    server = HTTPServer(('localhost', 8000), MyHandler)
+    server = HTTPServer(('localhost', 4277), MyHandler)
     print('Starting server...')
     server.serve_forever()
